@@ -8,21 +8,15 @@ class App extends Component {
   constructor(){
     super();
     this.state={
-      searchData:""||"horror",
       movies: []
     }
     this.updateMovies = this.updateMovies.bind(this);
-  }
-  updateMovies(searchValue){
-    this.setState({
-        searchData:`${searchValue}`,
-        // .concat(this.state.movies); if i want to add the the original results
-      // end of set state
-    })
+    // questions why am i setting this for ? i know it triggers a rerender
   }
 
   componentDidMount(){
-    let url=`http://www.omdbapi.com/?s=${this.state.searchData}`;
+    let difaultDisplay =  "horror"
+    let url=`http://www.omdbapi.com/?s=${difaultDisplay}`;
 
     Axios.get(url)
      .then((response)=>{
@@ -32,13 +26,21 @@ class App extends Component {
     })
 // end of DidMoount
   }
+  updateMovies(searchMovies){
+    this.setState({
+        movies:searchMovies
 
+        // .concat(this.state.movies) if i want to add the the original results
+      // end of set state
+    })
+
+  }
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <Search onUpdate={this.updateMovies} />
+          <Search onSearch={this.updateMovies} />
         </div>
         <ul className="movie-list">
         {this.state.movies.map((movie,index)=>{

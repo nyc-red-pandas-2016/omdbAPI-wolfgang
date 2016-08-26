@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 export default class Movie extends Component{
   render(){
     let movie = this.props.movie;
+  
     return(
       <div className="movie-info">
       <h4><a href={`http://www.imdb.com/title/${movie.imdbID}`} target="_blank">{movie.Title}</a></h4>
